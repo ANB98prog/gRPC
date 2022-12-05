@@ -1,5 +1,5 @@
 .vs
-GrpcApplication/bin
-GrpcApplication/obj
-GrpcGreeterClient/bin
-GrpcGreeterClient/obj
+/GrpcApplication/bin
+/GrpcApplication/obj
+/GrpcGreeterClient/bin
+/GrpcGreeterClient/obj
