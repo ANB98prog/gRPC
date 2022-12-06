@@ -51,5 +51,13 @@ namespace GrpcApplication.Services
 
             return Task.FromResult(foundCustomer);
         }
+
+        public override async Task GetNewCustomers(NewCustomerRequest request, IServerStreamWriter<CustomerModel> responseStream, ServerCallContext context)
+        {
+            foreach (var customer in _customers)
+            {
+                await responseStream.WriteAsync(customer);
+            }
+        }
     }
 }

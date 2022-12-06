@@ -3,3 +3,4 @@
 /GrpcApplication/obj
 /GrpcGreeterClient/bin
 /GrpcGreeterClient/obj
+/GrpcApplication/bin/Debug/net7.0/GrpcApplication.deps.json

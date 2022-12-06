@@ -6,11 +6,14 @@ package customer;
 
 service Customer {
   rpc GetCustomerInfo (CustomerLookupModel) returns (CustomerModel);
+  rpc GetNewCustomers (NewCustomerRequest) returns (stream CustomerModel);
 }
 
 message CustomerLookupModel {
   int32 userId = 1;
 }
+
+message NewCustomerRequest {}
 
 message CustomerModel {
   string id = 1;

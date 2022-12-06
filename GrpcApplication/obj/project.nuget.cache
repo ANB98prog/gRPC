@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LLCp5GmtSBxKo9mfy1JobArGXyB3WtdCMXjNRgsJtACz9iOEVeXPs+wyGBbjIRJSDu9EZeCi4hG8/5dgPcrJxw==",
+  "dgSpecHash": "EzAEQelFxc9uo6L/Nv25sj0sJBRapgkm3StBrsnM4+nF6kV/mYLE41TOY4p8Q3UtqH8RXrbeewZGiWqGfiEy+Q==",
   "success": true,
   "projectFilePath": "E:\\Бакаев\\Проекты\\gRPC\\GrpcApplication\\GrpcApplication.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,7 @@
     "C:\\Users\\tatar\\.nuget\\packages\\grpc.net.client\\2.49.0\\grpc.net.client.2.49.0.nupkg.sha512",
     "C:\\Users\\tatar\\.nuget\\packages\\grpc.net.clientfactory\\2.49.0\\grpc.net.clientfactory.2.49.0.nupkg.sha512",
     "C:\\Users\\tatar\\.nuget\\packages\\grpc.net.common\\2.49.0\\grpc.net.common.2.49.0.nupkg.sha512",
-    "C:\\Users\\tatar\\.nuget\\packages\\grpc.tools\\2.49.0\\grpc.tools.2.49.0.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\grpc.tools\\2.50.0\\grpc.tools.2.50.0.nupkg.sha512",
     "C:\\Users\\tatar\\.nuget\\packages\\microsoft.extensions.configuration\\3.0.3\\microsoft.extensions.configuration.3.0.3.nupkg.sha512",
     "C:\\Users\\tatar\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.0.3\\microsoft.extensions.configuration.abstractions.3.0.3.nupkg.sha512",
     "C:\\Users\\tatar\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.0.3\\microsoft.extensions.configuration.binder.3.0.3.nupkg.sha512",
