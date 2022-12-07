@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcChatServer";
+
+package chat;
+
+// The chat service definition
+service Chat {
+	// Sends message
+	rpc SendMessage (stream ChatMessageRequest) returns (stream ChatMessageServerResponse);
+}
+
+// Chat message request
+message ChatMessageRequest {
+	string user = 1;
+	string message = 2;
+}
+
+// Chat message response from server
+message ChatMessageServerResponse {
+	ChatMessageRequest message = 1;
+}

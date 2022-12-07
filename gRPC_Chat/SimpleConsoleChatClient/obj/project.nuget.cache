@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "nwM6iQbr5IaJpvCe4X3Y3WRe6UsIDxo0H8S9lEMpMyYP6RmX3btLhioOf/pAPvUF/JuWnYXt7ZghXLKkFYD7hA==",
+  "success": true,
+  "projectFilePath": "E:\\Бакаев\\Проекты\\gRPC\\gRPC_Chat\\SimpleConsoleChatClient\\SimpleConsoleChatClient.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tatar\\.nuget\\packages\\google.protobuf\\3.21.10\\google.protobuf.3.21.10.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\grpc.core.api\\2.50.0\\grpc.core.api.2.50.0.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\grpc.net.client\\2.50.0\\grpc.net.client.2.50.0.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\grpc.net.common\\2.50.0\\grpc.net.common.2.50.0.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\grpc.tools\\2.51.0-pre1\\grpc.tools.2.51.0-pre1.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\tatar\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}
