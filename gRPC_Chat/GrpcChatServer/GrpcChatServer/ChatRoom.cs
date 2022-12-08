@@ -11,17 +11,54 @@ namespace GrpcChatServer
         /// <summary>
         /// Users in the room
         /// </summary>
-        private ConcurrentDictionary<string, IServerStreamWriter<ChatMessageServerResponse>> _users 
-                        = new ConcurrentDictionary<string, IServerStreamWriter<ChatMessageServerResponse>>();
+        private ConcurrentDictionary<string, IServerStreamWriter<ChatMessageServerResponse>?> _users 
+                        = new ConcurrentDictionary<string, IServerStreamWriter<ChatMessageServerResponse>?>();
 
         /// <summary>
         /// Adds user in the room
         /// </summary>
-        /// <param name="name">User login</param>
+        /// <param name="login">User login</param>
         /// <param name="responseWriter">User grpc response writer</param>
-        public bool Join(string name, IServerStreamWriter<ChatMessageServerResponse> responseWriter)
+        public void Join(string login, IServerStreamWriter<ChatMessageServerResponse> responseWriter)
         {
-            return _users.TryAdd(name, responseWriter);
+            if (!_users.ContainsKey(login))
+            {
+                _users.TryAdd(login, responseWriter);
+            }
+            else if(_users.TryGetValue(login, out var writer))
+            {
+                _users.TryUpdate(login, responseWriter, null);
+            }
+        }
+
+        /// <summary>
+        /// Checks is user loged in 
+        /// </summary>
+        /// <param name="login">User login</param>
+        /// <returns></returns>
+        public bool IsUserLogedIn(string login)
+        {
+            if (_users.TryGetValue(login, out var responseWriter))
+            {
+                if (responseWriter != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Is user exists
+        /// </summary>
+        /// <param name="login">User login</param>
+        /// <returns>
+        /// true if exists else false
+        /// </returns>
+        public bool IsUserExists(string login)
+        {
+            return _users.ContainsKey(login);
         }
 
         /// <summary>

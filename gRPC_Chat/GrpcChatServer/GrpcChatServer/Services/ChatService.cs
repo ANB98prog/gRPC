@@ -35,7 +35,10 @@ namespace GrpcChatServer.Services
             {
                 var chatUser = requestStream.Current;
 
-                _chatRoom.Join(chatUser.User, responseStream);
+                if (!_chatRoom.IsUserLogedIn(chatUser.User))
+                {
+                    _chatRoom.Join(chatUser.User, responseStream);
+                }                
 
                 /*
                 If message is not empty
@@ -54,6 +57,61 @@ namespace GrpcChatServer.Services
                     await _chatRoom.PublishMessageAsync(serverResponseMessage);
                 }
             }
+        }
+
+        /// <summary>
+        /// LogIns user to chat session
+        /// </summary>
+        /// <param name="request">LogIn request</param>
+        /// <param name="context">Call context</param>
+        /// <returns>Login response</returns>
+        public override Task<LoginResponse> LogIn(LoginRequest request, ServerCallContext context)
+        {
+            var userLogin = request.Login;
+
+            if (string.IsNullOrWhiteSpace(userLogin))
+            {
+                return Task.FromResult(new LoginResponse
+                {
+                    Success = false,
+                    ErrorMessage = "User login cannot be empty!"
+                });
+            }
+
+            if (_chatRoom.IsUserExists(userLogin))
+            {
+                return Task.FromResult(new LoginResponse
+                {
+                    Success = false,
+                    ErrorMessage = $"User with '{userLogin}' already exists!"
+                });
+            }
+
+            _chatRoom.Join(userLogin, null);
+
+            return Task.FromResult(new LoginResponse
+            {
+                Success = true
+            });
+        }
+
+        /// <summary>
+        /// LogOuts user from chat session
+        /// </summary>
+        /// <param name="request">Logout request</param>
+        /// <param name="context">Call context</param>
+        /// <returns>Logout response</returns>
+        public override Task<LogoutResponse> LogOut(LogoutRequest request, ServerCallContext context)
+        {
+            var userLogin = request.Login;
+
+            if (!string.IsNullOrWhiteSpace(userLogin)
+                && _chatRoom.IsUserExists(request.Login))
+            {
+                _chatRoom.Remove(userLogin);
+            }
+
+            return Task.FromResult(new LogoutResponse());
         }
     }
 }

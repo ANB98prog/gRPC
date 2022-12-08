@@ -8,6 +8,12 @@ package chat;
 service Chat {
 	// Sends message
 	rpc SendMessage (stream ChatMessageRequest) returns (stream ChatMessageServerResponse);
+
+	// LogIn users
+	rpc LogIn (LoginRequest) returns (LoginResponse);
+
+	// LogOut
+	rpc LogOut (LogoutRequest) returns (LogoutResponse);
 }
 
 // Chat message request
@@ -20,3 +26,22 @@ message ChatMessageRequest {
 message ChatMessageServerResponse {
 	ChatMessageRequest message = 1;
 }
+
+// Login request
+message LoginRequest {
+	string login = 1;
+}
+
+// Logout request
+message LogoutRequest {
+	string login = 1;
+}
+
+// LogIn response
+message LoginResponse {
+	bool success = 1;
+	string errorMessage = 2;
+}
+
+// LogOut response
+message LogoutResponse {}

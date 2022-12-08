@@ -52,6 +52,14 @@ namespace GrpcChatServer {
     static readonly grpc::Marshaller<global::GrpcChatServer.ChatMessageRequest> __Marshaller_chat_ChatMessageRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.ChatMessageRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::GrpcChatServer.ChatMessageServerResponse> __Marshaller_chat_ChatMessageServerResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.ChatMessageServerResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcChatServer.LoginRequest> __Marshaller_chat_LoginRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.LoginRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcChatServer.LoginResponse> __Marshaller_chat_LoginResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.LoginResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcChatServer.LogoutRequest> __Marshaller_chat_LogoutRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.LogoutRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::GrpcChatServer.LogoutResponse> __Marshaller_chat_LogoutResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::GrpcChatServer.LogoutResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::GrpcChatServer.ChatMessageRequest, global::GrpcChatServer.ChatMessageServerResponse> __Method_SendMessage = new grpc::Method<global::GrpcChatServer.ChatMessageRequest, global::GrpcChatServer.ChatMessageServerResponse>(
@@ -60,6 +68,22 @@ namespace GrpcChatServer {
         "SendMessage",
         __Marshaller_chat_ChatMessageRequest,
         __Marshaller_chat_ChatMessageServerResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::GrpcChatServer.LoginRequest, global::GrpcChatServer.LoginResponse> __Method_LogIn = new grpc::Method<global::GrpcChatServer.LoginRequest, global::GrpcChatServer.LoginResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LogIn",
+        __Marshaller_chat_LoginRequest,
+        __Marshaller_chat_LoginResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::GrpcChatServer.LogoutRequest, global::GrpcChatServer.LogoutResponse> __Method_LogOut = new grpc::Method<global::GrpcChatServer.LogoutRequest, global::GrpcChatServer.LogoutResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LogOut",
+        __Marshaller_chat_LogoutRequest,
+        __Marshaller_chat_LogoutResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -84,6 +108,30 @@ namespace GrpcChatServer {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      /// <summary>
+      /// LogIn users
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::GrpcChatServer.LoginResponse> LogIn(global::GrpcChatServer.LoginRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      /// <summary>
+      /// LogOut
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::GrpcChatServer.LogoutResponse> LogOut(global::GrpcChatServer.LogoutRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -92,7 +140,9 @@ namespace GrpcChatServer {
     public static grpc::ServerServiceDefinition BindService(ChatBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_SendMessage, serviceImpl.SendMessage).Build();
+          .AddMethod(__Method_SendMessage, serviceImpl.SendMessage)
+          .AddMethod(__Method_LogIn, serviceImpl.LogIn)
+          .AddMethod(__Method_LogOut, serviceImpl.LogOut).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -103,6 +153,8 @@ namespace GrpcChatServer {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, ChatBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_SendMessage, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::GrpcChatServer.ChatMessageRequest, global::GrpcChatServer.ChatMessageServerResponse>(serviceImpl.SendMessage));
+      serviceBinder.AddMethod(__Method_LogIn, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GrpcChatServer.LoginRequest, global::GrpcChatServer.LoginResponse>(serviceImpl.LogIn));
+      serviceBinder.AddMethod(__Method_LogOut, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::GrpcChatServer.LogoutRequest, global::GrpcChatServer.LogoutResponse>(serviceImpl.LogOut));
     }
 
   }
