@@ -31,28 +31,37 @@ namespace GrpcChatServer.Services
                 IAsyncStreamReader<ChatMessageRequest> requestStream,
                     IServerStreamWriter<ChatMessageServerResponse> responseStream, ServerCallContext context)
         {
-            while (await requestStream.MoveNext())
+            try
             {
-                var chatUser = requestStream.Current;
+                if (!await requestStream.MoveNext()) return;
 
-                _chatRoom.Join(chatUser.User, responseStream);
-
-                /*
-                If message is not empty
-                */
-                if (!string.IsNullOrWhiteSpace(chatUser.Message))
+                do
                 {
-                    var serverResponseMessage = new ChatMessageServerResponse
-                    {
-                        Message = new ChatMessageRequest
-                        {
-                            User = chatUser.User,
-                            Message = chatUser.Message
-                        }
-                    };
+                    var chatUser = requestStream.Current;
 
-                    await _chatRoom.PublishMessageAsync(serverResponseMessage);
-                }
+                    _chatRoom.Join(chatUser.User, responseStream);
+
+                    /*
+                    If message is not empty
+                    */
+                    if (!string.IsNullOrWhiteSpace(chatUser.Message))
+                    {
+                        var serverResponseMessage = new ChatMessageServerResponse
+                        {
+                            Message = new ChatMessageRequest
+                            {
+                                User = chatUser.User,
+                                Message = chatUser.Message
+                            }
+                        };
+
+                        await _chatRoom.PublishMessageAsync(serverResponseMessage);
+                    }
+                } while (await requestStream.MoveNext());
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("Client disconnected...");
             }
         }
     }

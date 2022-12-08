@@ -48,6 +48,7 @@ namespace SimpleConsoleChatClient
                     finally
                     {
                         await call.RequestStream.CompleteAsync();
+                        await channel.ShutdownAsync();
                     }
                 }
             }
