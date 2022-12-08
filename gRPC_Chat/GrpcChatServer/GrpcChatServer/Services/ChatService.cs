@@ -31,28 +31,32 @@ namespace GrpcChatServer.Services
                 IAsyncStreamReader<ChatMessageRequest> requestStream,
                     IServerStreamWriter<ChatMessageServerResponse> responseStream, ServerCallContext context)
         {
-            while (await requestStream.MoveNext())
+            try
             {
-                var chatUser = requestStream.Current;
+                if (!await requestStream.MoveNext()) return;
+
+                do
+                {
+                    var chatUser = requestStream.Current;
 
                 if (!_chatRoom.IsUserLogedIn(chatUser.User))
                 {
                     _chatRoom.Join(chatUser.User, responseStream);
                 }                
 
-                /*
-                If message is not empty
-                */
-                if (!string.IsNullOrWhiteSpace(chatUser.Message))
-                {
-                    var serverResponseMessage = new ChatMessageServerResponse
+                    /*
+                    If message is not empty
+                    */
+                    if (!string.IsNullOrWhiteSpace(chatUser.Message))
                     {
-                        Message = new ChatMessageRequest
+                        var serverResponseMessage = new ChatMessageServerResponse
                         {
-                            User = chatUser.User,
-                            Message = chatUser.Message
-                        }
-                    };
+                            Message = new ChatMessageRequest
+                            {
+                                User = chatUser.User,
+                                Message = chatUser.Message
+                            }
+                        };
 
                     await _chatRoom.PublishMessageAsync(serverResponseMessage);
                 }

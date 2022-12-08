@@ -76,6 +76,7 @@ namespace SimpleConsoleChatClient
                         });
 
                         await call.RequestStream.CompleteAsync();
+                        await channel.ShutdownAsync();
                     }
                 }
             }
