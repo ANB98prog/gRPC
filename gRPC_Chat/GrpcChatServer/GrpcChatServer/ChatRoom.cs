@@ -65,7 +65,7 @@ namespace GrpcChatServer
         /// Removes user from the room
         /// </summary>
         /// <param name="name">User login</param>
-        public void Remove(string name) => _users.TryRemove(name, out var response);
+        public bool Remove(string name) => _users.Remove(name, out var response);
 
         /// <summary>
         /// Publishes user's message to all the people in the room

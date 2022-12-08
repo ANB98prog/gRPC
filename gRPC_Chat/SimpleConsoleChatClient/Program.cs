@@ -2,6 +2,7 @@
 using Grpc.Net.Client;
 using GrpcChatServer;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace SimpleConsoleChatClient
 {
@@ -17,18 +18,28 @@ namespace SimpleConsoleChatClient
         /// </summary>
         private static readonly string _exitCommand = "quit";
 
+        /// <summary>
+        /// User's login
+        /// </summary>
+        private static string _userLogin = null;
+
+        /// <summary>
+        /// Chat client
+        /// </summary>
+        private static Chat.ChatClient _client = null;
+
         private static async Task Main(string[] args)
         {
             using var channel = GrpcChannel.ForAddress("http://localhost:5067");
-            var client = new Chat.ChatClient(channel);
+            _client = new Chat.ChatClient(channel);
 
             try
             {
-                using (var call = client.SendMessage())
+                using (var call = _client.SendMessage())
                 {
                     try
                     {
-                        var login = LogInUser(client);
+                        LogInUser();
 
                         if (!_exit)
                         {
@@ -45,7 +56,7 @@ namespace SimpleConsoleChatClient
                                 {
                                     var userMessage = new ChatMessageRequest
                                     {
-                                        User = login,
+                                        User = _userLogin,
                                         Message = message
                                     };
 
@@ -56,6 +67,14 @@ namespace SimpleConsoleChatClient
                     }
                     finally
                     {
+                        LogOutUser();
+
+                        await call.RequestStream.WriteAsync(new ChatMessageRequest
+                        {
+                            User = _userLogin,
+                            Message = "Disconnected"
+                        });
+
                         await call.RequestStream.CompleteAsync();
                     }
                 }
@@ -69,9 +88,8 @@ namespace SimpleConsoleChatClient
         /// <summary>
         /// LogIns user to chat room
         /// </summary>
-        /// <param name="client">Chat client</param>
         /// <returns></returns>
-        private static string LogInUser(Chat.ChatClient client)
+        private static void LogInUser()
         {
             var success = false;
             var login = "";
@@ -83,7 +101,7 @@ namespace SimpleConsoleChatClient
 
                 if (!_exit)
                 {
-                    var loginResponse = client.LogIn(new LoginRequest { Login = login });
+                    var loginResponse = _client.LogIn(new LoginRequest { Login = login });
 
                     if (loginResponse.Success)
                     {
@@ -98,7 +116,7 @@ namespace SimpleConsoleChatClient
                 }
             }
 
-            return login;
+            _userLogin = login;
         }
 
         /// <summary>
@@ -123,6 +141,14 @@ namespace SimpleConsoleChatClient
             }
 
             return login;
+        }
+
+        /// <summary>
+        /// Logouts user
+        /// </summary>
+        public static void LogOutUser()
+        {
+            _client.LogOut(new LogoutRequest { Login = _userLogin });
         }
 
         /// <summary>

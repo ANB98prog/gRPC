@@ -108,7 +108,7 @@ namespace GrpcChatServer.Services
             if (!string.IsNullOrWhiteSpace(userLogin)
                 && _chatRoom.IsUserExists(request.Login))
             {
-                _chatRoom.Remove(userLogin);
+                var r = _chatRoom.Remove(userLogin);
             }
 
             return Task.FromResult(new LogoutResponse());
