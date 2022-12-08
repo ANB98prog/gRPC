@@ -29,6 +29,7 @@ namespace SimpleConsoleChatClient
 
                             while (!message.Equals("exit()"))
                             {
+                                Console.Write("$ ");
                                 message = Console.ReadLine();
 
                                 if (!string.IsNullOrWhiteSpace(message))
@@ -82,6 +83,7 @@ namespace SimpleConsoleChatClient
             {
                 var responseMessage = call.ResponseStream.Current;
                 Console.WriteLine($"{responseMessage.Message.User}: {responseMessage.Message.Message}");
+                Console.Write("$ ");
             }
         }
     }
